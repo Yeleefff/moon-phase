@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 public class ConfigHandler {
-    private static ConfigState LOADED_STATE = new ConfigState(true, "full moon", false);
+    private static ConfigState LOADED_STATE = new ConfigState(true, "full moon");
     private static Path PATH;
 
     public static ConfigState getState() {

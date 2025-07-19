@@ -14,9 +14,7 @@ public abstract class DimensionTypeMixin {
 	private int getCustomMoonPhase(int time) {
 		ConfigState state = ConfigHandler.getState();
 
-		if (state.mirrorRealMoonPhase) {
-			return Moonphase.moonPhaseToIndex(Moonphase.ACTUAL_MOON_PHASE);
-		} else if (state.constantMoonPhase) {
+		if (state.constantMoonPhase) {
 			return Moonphase.moonPhaseToIndex(state.moonPhase);
 		} else {
 			return time;
