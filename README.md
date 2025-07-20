@@ -1,13 +1,13 @@
 # Configurable Moon Phases
-Allows for the world to use a specific moon phase indefinitely. By default, this functionality is not active and 
-the vanilla lunar cycle is used instead.
+Stops the lunar cycle, allowing the world to use a specific moon phase indefinitely. By default, this functionality is inactive and
+the vanilla lunar cycle is used.
 
 ## Configuration
 This mod is configurable through a json file.  
 `constantMoonPhase` - Controls whether a specific moon phase should repeat  
 `moonPhase` - The moon phase to repeat
 
-#### Moon Phases
+Acceptable arguments for `moonPhase` are:
 - Full moon
 - Waning gibbous
 - Last quarter
