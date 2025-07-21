@@ -1,4 +1,4 @@
-# Configurable Moon Phases
+# Persistent Moon Phases
 Stops the lunar cycle, allowing the world to use a specific moon phase indefinitely. By default, this functionality is inactive and
 the vanilla lunar cycle is used.
 
