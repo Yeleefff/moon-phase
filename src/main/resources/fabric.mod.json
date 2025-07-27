@@ -4,9 +4,7 @@
 	"version": "${version}",
 	"name": "moonphase",
 	"description": "",
-	"authors": [
-		"Yeleefff"
-	],
+	"authors": ["Yeleefff"],
 	"contact": {
 		"homepage": "",
 		"sources": ""
@@ -15,13 +13,10 @@
 	"icon": "assets/moonphase/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"net.yeleefff.Moonphase"
-		]
+		"main": ["net.yeleefff.Moonphase"],
+		"client": ["net.yeleefff.MoonPhaseClient"]
 	},
-	"mixins": [
-		"moonphase.mixins.json"
-	],
+	"mixins": ["moonphase.mixins.json"],
 	"depends": {
 		"fabricloader": ">=0.16.14",
 		"minecraft": "~1.21.8",

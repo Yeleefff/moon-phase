@@ -21,7 +21,7 @@ public class ConfigHandler {
     public static void load(Path dir) {
         PATH = dir.resolve("moon_phase.json");
 
-        if (!Files.isRegularFile(PATH)) save();
+        if (!Files.isRegularFile(PATH)) save(LOADED_STATE);
 
         try (BufferedReader reader = Files.newBufferedReader(PATH)) {
             JsonElement json = JsonParser.parseReader(reader);
@@ -39,12 +39,12 @@ public class ConfigHandler {
             throw new RuntimeException(e);
         }
 
-        save();
+        save(LOADED_STATE);
     }
 
-    public static void save() {
+    public static void save(ConfigState state) {
         try (BufferedWriter writer = Files.newBufferedWriter(PATH)) {
-            JsonElement json = ConfigState.CODEC.encodeStart(JsonOps.INSTANCE, LOADED_STATE).result().get();
+            JsonElement json = ConfigState.CODEC.encodeStart(JsonOps.INSTANCE, state).result().get();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             writer.write(gson.toJson(json));
 

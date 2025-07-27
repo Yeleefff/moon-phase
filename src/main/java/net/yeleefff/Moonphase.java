@@ -1,9 +1,12 @@
 package net.yeleefff;
 
 import net.fabricmc.api.ModInitializer;
-
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerConfigurationConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerConfigurationNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.yeleefff.config.ConfigHandler;
+import net.yeleefff.network.SyncConfigS2CPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +17,23 @@ public class Moonphase implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ConfigHandler.load(FabricLoader.getInstance().getConfigDir());
+		System.out.println("Config loaded");
+
+		PayloadTypeRegistry.configurationS2C().register(SyncConfigS2CPayload.ID, SyncConfigS2CPayload.CODEC);
+
+		ServerConfigurationConnectionEvents.CONFIGURE.register((handler, server) -> {
+			if (ServerConfigurationNetworking.canSend(handler, SyncConfigS2CPayload.ID)) {
+				handler.sendPacket(ServerConfigurationNetworking.createS2CPacket(new SyncConfigS2CPayload(ConfigHandler.getState())));
+				System.out.println("Config sync packet sent");
+			}
+		});
 	}
 
 	public static int moonPhaseToIndex(String moonPhase) {
-		if (moonPhase == null) return 0;
+		if (moonPhase == null){
+			LOGGER.warn("moonPhase is null; defaulting to full moon");
+			return 0;
+		}
 
 		return switch (moonPhase.toLowerCase().trim().replaceAll("\\s", "_")) {
 			case "full_moon" -> 0;
