@@ -12,7 +12,6 @@ public class MoonPhaseClient implements ClientModInitializer {
         ClientConfigurationNetworking.registerGlobalReceiver(SyncConfigS2CPayload.ID, (payload, context) -> {
             ConfigHandler.save(payload.configState());
             ConfigHandler.load(FabricLoader.getInstance().getConfigDir());
-            System.out.println("Config sync packet received");
         });
     }
 }

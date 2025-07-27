@@ -17,14 +17,12 @@ public class Moonphase implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ConfigHandler.load(FabricLoader.getInstance().getConfigDir());
-		System.out.println("Config loaded");
 
 		PayloadTypeRegistry.configurationS2C().register(SyncConfigS2CPayload.ID, SyncConfigS2CPayload.CODEC);
 
 		ServerConfigurationConnectionEvents.CONFIGURE.register((handler, server) -> {
 			if (ServerConfigurationNetworking.canSend(handler, SyncConfigS2CPayload.ID)) {
 				handler.sendPacket(ServerConfigurationNetworking.createS2CPacket(new SyncConfigS2CPayload(ConfigHandler.getState())));
-				System.out.println("Config sync packet sent");
 			}
 		});
 	}
