@@ -3,7 +3,7 @@ Stops the lunar cycle, allowing the world to use a specific moon phase indefinit
 the vanilla lunar cycle is used.
 
 ## Configuration
-This mod is configurable through a json (fabric) or toml (NeoForge) file.  
+This mod is configurable through a json (Fabric) or toml (NeoForge) file.  
 `constantMoonPhase` - Controls whether a specific moon phase should repeat  
 `moonPhase` - The moon phase to repeat
 
