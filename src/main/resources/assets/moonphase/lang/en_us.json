@@ -1,0 +1,8 @@
+{
+  "moonphase.configuration.title": "Moon Phase Config",
+  "moonphase.configuration.section.moonphase.server.toml": "Moon Phase Configuration",
+  "moonphase.configuration.section.moonphase.server.toml.title": "Moon Phase Configuration",
+
+  "moonphase.configuration.constantMoonPhase": "Constant Moon Phase",
+  "moonphase.configuration.moonPhase": "Moon Phase"
+}

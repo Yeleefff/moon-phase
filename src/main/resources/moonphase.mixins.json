@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "net.yeleefff.moonphase.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "DimensionTypeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
