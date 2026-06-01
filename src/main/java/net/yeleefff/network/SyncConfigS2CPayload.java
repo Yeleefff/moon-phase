@@ -1,18 +1,18 @@
 package net.yeleefff.network;
 
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
 import net.yeleefff.Moonphase;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.yeleefff.config.ConfigState;
 
-public record SyncConfigS2CPayload(ConfigState configState) implements CustomPayload {
-    public static final CustomPayload.Id<SyncConfigS2CPayload> ID = new CustomPayload.Id<>(Identifier.of(Moonphase.MOD_ID, "sync_config"));
-    public static final PacketCodec<PacketByteBuf, SyncConfigS2CPayload> CODEC = PacketCodec.tuple(ConfigState.PACKET_CODEC, SyncConfigS2CPayload::configState, SyncConfigS2CPayload::new);
+public record SyncConfigS2CPayload(ConfigState configState) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<SyncConfigS2CPayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Moonphase.MOD_ID, "sync_config"));
+    public static final StreamCodec<FriendlyByteBuf, SyncConfigS2CPayload> CODEC = StreamCodec.composite(ConfigState.PACKET_CODEC, SyncConfigS2CPayload::configState, SyncConfigS2CPayload::new);
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 }

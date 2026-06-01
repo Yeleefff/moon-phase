@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 public class ConfigHandler {
-    private static ConfigState LOADED_STATE = new ConfigState(false, "full moon");
+    private static ConfigState LOADED_STATE;
     private static Path PATH;
 
     public static ConfigState getState() {
@@ -21,7 +21,10 @@ public class ConfigHandler {
     public static void load(Path dir) {
         PATH = dir.resolve("moon_phase.json");
 
-        if (!Files.isRegularFile(PATH)) save(LOADED_STATE);
+        if (!Files.isRegularFile(PATH)) {
+            System.out.println("Creating config file");
+            save(LOADED_STATE = new ConfigState(false, "full moon"));
+        }
 
         try (BufferedReader reader = Files.newBufferedReader(PATH)) {
             JsonElement json = JsonParser.parseReader(reader);
@@ -29,6 +32,7 @@ public class ConfigHandler {
 
             if (state.isPresent()) {
                 LOADED_STATE = state.get();
+                System.out.println("Loaded state from file");
             } else {
                 throw new JsonParseException("Invalid codec: An error occurred while attempting to load Moon Phase's config codec");
             }
@@ -43,6 +47,7 @@ public class ConfigHandler {
     }
 
     public static void save(ConfigState state) {
+        System.out.println("Info saved to file");
         try (BufferedWriter writer = Files.newBufferedWriter(PATH)) {
             JsonElement json = ConfigState.CODEC.encodeStart(JsonOps.INSTANCE, state).result().get();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
