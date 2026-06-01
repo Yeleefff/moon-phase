@@ -1,9 +1,7 @@
 package net.yeleefff;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerConfigurationConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerConfigurationNetworking;
+import net.fabricmc.fabric.api.networking.v1.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.yeleefff.config.ConfigHandler;
 import net.yeleefff.network.SyncConfigS2CPayload;
@@ -22,8 +20,7 @@ public class Moonphase implements ModInitializer {
 		ServerConfigurationConnectionEvents.CONFIGURE.register((handler, server) -> {
 			if (ServerConfigurationNetworking.canSend(handler, SyncConfigS2CPayload.ID)) {
 				ConfigHandler.load(FabricLoader.getInstance().getConfigDir());
-				handler.send(ServerConfigurationNetworking.createS2CPacket(new SyncConfigS2CPayload(ConfigHandler.getState())));
-				System.out.println("Server sent packet");
+				handler.send(ServerPlayNetworking.createS2CPacket(new SyncConfigS2CPayload(ConfigHandler.getState())));
 			}
 		});
 	}
